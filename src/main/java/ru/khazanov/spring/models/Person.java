@@ -1,12 +1,25 @@
 package ru.khazanov.spring.models;
 
+import javax.validation.constraints.Email;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Size;
+
 /**
  * @author Khazanov
  **/
 public class Person {
     private int id;
+
+    @NotEmpty(message = "Name should not be empty")
+    @Size(min = 2, max=30, message = "name should be between 2 and 30 chars")
     private String name;
+
+    @Min(value = 0, message = "Age should be > 0")
     private int age;
+
+    @NotEmpty(message = "email should not be empty")
+    @Email(message = "Email should be valid")
     private String email;
 
 

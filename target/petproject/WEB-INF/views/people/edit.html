@@ -10,14 +10,16 @@
       th:object="${person}">
     <label for="name">Enter new name</label>
     <input type="text"  th:field="*{name}" id="name">
+    <div style="color: red" th:if="${#fields.hasErrors('name')}" th:errors="*{name}">Name error</div>
     <br/>
     <label for="age">Enter new age</label>
     <input type="number" th:field="*{age}" id="age">
+    <div style="color: red" th:if="${#fields.hasErrors('age')}" th:errors="*{age}">age error</div>
     <br/>
     <label for="email">Enter new email</label>
     <input type="email" th:field="*{email}" id="email">
+    <div style="color: red" th:if="${#fields.hasErrors('email')}" th:errors="*{email}">email error</div>
     <br/>
-
 
     <input type="submit" value="Update!"/>
 </form>

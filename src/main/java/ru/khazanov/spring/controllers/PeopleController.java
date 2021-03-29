@@ -8,6 +8,9 @@ import org.springframework.web.bind.annotation.*;
 import ru.khazanov.spring.dao.PersonDAO;
 import ru.khazanov.spring.models.Person;
 
+
+import javax.validation.Valid;
+
 /**
  * @author Khazanov
  **/
@@ -22,10 +25,10 @@ public class PeopleController {
         this.personDAO = personDAO;
     }
 
+
     @GetMapping()
     public String index(Model model) {
         model.addAttribute("people", personDAO.index());
-
         return "people/index";
     }
 
@@ -36,21 +39,22 @@ public class PeopleController {
     }
 
     @GetMapping("/new")
-    public String newPerson(Model model, Person person) {
+    public String newPerson(Model model) {
 
         model.addAttribute("person", new Person());
+
         return "people/new";
     }
 
     @PostMapping()
-    public String create(@ModelAttribute("person")  Person person) {
-        personDAO.save(person);
-        return "redirect:/people";
-    }
+    public String create(@ModelAttribute("person") @Valid Person person,
+                         BindingResult bindingResult) {
+        if (bindingResult.hasErrors()) {
+            System.out.println(bindingResult.getFieldError());
 
-    @PatchMapping("/{id}")
-    public String update(@ModelAttribute("person")  Person person, @PathVariable("id") int id) {
-        personDAO.update(id, person);
+            return "/people/new";
+        }
+        personDAO.save(person);
         return "redirect:/people";
     }
 
@@ -59,6 +63,19 @@ public class PeopleController {
         model.addAttribute("person", personDAO.show(id));
         return "people/edit";
     }
+
+    @PatchMapping("/{id}")
+    public String update(@ModelAttribute("person") @Valid Person person, BindingResult bindingResult, @PathVariable("id") int id) {
+
+
+        if (bindingResult.hasErrors()) {
+            System.out.println(bindingResult.getFieldError());
+            return "people/edit";
+        }
+        personDAO.update(id, person);
+        return "redirect:/people";
+    }
+
     @DeleteMapping("/{id}")
     public String delete(@PathVariable("id") int id) {
         personDAO.delete(id);
