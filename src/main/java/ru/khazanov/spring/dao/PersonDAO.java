@@ -27,4 +27,21 @@ public class PersonDAO {
     public Person show(int id) {
         return people.stream().filter(person -> person.getId() == id).findAny().orElse(null);
     }
+
+
+    public void save(Person person) {
+        people.add(person);
+    }
+
+    public void update(int id, Person updatedPerson) {
+        Person person = show(id);
+        person.setName(updatedPerson.getName());
+        person.setAge(updatedPerson.getAge());
+        person.setEmail(updatedPerson.getEmail());
+    }
+
+    public void delete(int id) {
+        people.removeIf(person -> person.getId() == id);
+    }
+
 }
