@@ -23,13 +23,18 @@ public class Person {
     private String email;
 
 
+
+    private String phone;
+
+
     public Person(){}
 
-    public Person(int id, String name, int age, String email) {
+    public Person(int id, String name, int age, String email, String phoneNumber) {
         this.id = id;
         this.name = name;
         this.age = age;
         this.email = email;
+        this.phone = phoneNumber;
     }
 
     public int getAge() {
@@ -64,5 +69,13 @@ public class Person {
         this.name = name;
     }
 
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = String.valueOf(phone).replaceFirst("(\\d{3})(\\d{3})(\\d+)", "($1)-$2-$3");
+    }
 }
 

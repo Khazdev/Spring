@@ -32,15 +32,15 @@ public class PersonDAO {
     }
 
     public void save(Person person) {
-        jdbcTemplate.update("INSERT INTO Person(name,age,email) VALUES(? , ? ,?)",
-                person.getName(), person.getAge(), person.getEmail());
+        jdbcTemplate.update("INSERT INTO Person(name,age,email,phone) VALUES(? , ? ,?, ?)",
+                person.getName(), person.getAge(), person.getEmail(), person.getPhone());
     }
 
     public void update(int id, Person updatedPerson) {
         jdbcTemplate.update(
-                "UPDATE Person SET name=?, age=?, email=? WHERE id=?",
+                "UPDATE Person SET name=?, age=?, email=?, phone=? WHERE id=?",
                 updatedPerson.getName(), updatedPerson.getAge(),
-                updatedPerson.getEmail(), id);
+                updatedPerson.getEmail(), updatedPerson.getPhone(), id);
     }
 
     public void delete(int id) {

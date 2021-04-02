@@ -25,6 +25,10 @@
     <input type="text" th:field="*{email}" id="email">
     <div style="color: red" th:if="${#fields.hasErrors('email')}" th:errors="*{email}">email error</div>
     <br/>
+    <label for="phone"> Enter your number: </label>
+    <input type="text" th:field="*{phone}" id="phone">
+
+    <br/>
 
     <input type="submit" value="Create!">
 </form>

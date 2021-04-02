@@ -8,7 +8,7 @@
 <p th:text="${person.getName()}">VALUE</p>
 <p th:text="'id=' + ${person.getId()} + ', ' +
                     ${person.getAge()} + ' age, ' +
-                    ${person.getEmail()}">VALUE</p>
+                    ${person.getEmail()} + '  ' + ${person.getPhone()}">VALUE</p>
 
 <a th:href="@{/people}">back to list</a>
 <br>
