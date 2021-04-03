@@ -75,7 +75,7 @@ public class Person {
     }
 
     public void setPhone(String phone) {
-        this.phone = String.valueOf(phone).replaceFirst("(\\d{3})(\\d{3})(\\d+)", "($1)-$2-$3");
+        this.phone = phone;
     }
 }
 
