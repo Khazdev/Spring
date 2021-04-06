@@ -1,17 +1,45 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
 <head>
     <meta charset="UTF-8">
     <title>People list</title>
+    <script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 </head>
 <body>
-<div th:each="person : ${people}">
-    <a th:href="@{/people/{id}(id=${person.getId()})}"
-       th:text="${person.getName() + ', ' + person.getAge() + ', ' + person.getPhone()}">user</a>
-</div>
+
+<table style="border-top: 3px solid grey">
+    <tr style="border: 1px slategray">
+        <th>Id</th>
+        <th>Name</th>
+        <th>Phone</th>
+    </tr>
+
+    <tr th:each="person: ${people}">
+
+        <td style="border-bottom: 1px solid grey" th:text="${person.getId()}"></td>
+        <td style="border-bottom: 1px solid grey" th:text="${person.getName()}">name</td>
+        <td style="border-bottom: 1px solid grey"
+            th:text="${person.getPhone().replaceFirst('(\d{3})(\d{3})(\d+)', '($1) $2-$3')}">phone
+        </td>
+        <td>
+            <a th:href="@{/people/{id}(id=${person.getId()})}"
+            >Ссылка</a>
+        </td>
+
+    </tr>
+</table>
+
 <br>
 <br>
 <hr>
-<a th:href="@{/people/new}">create new person</a>
+
+<a th:href="@{/people/new}">создать нового человека</a>
+<br>
+<br>
+<hr>
+
+<a th:href="@{/people/search}">поиск</a>
+
+
 </body>
 </html>

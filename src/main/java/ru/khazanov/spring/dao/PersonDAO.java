@@ -8,6 +8,8 @@ import ru.khazanov.spring.models.Person;
 
 import java.util.List;
 
+
+
 /**
  * @author Khazanov
  **/
@@ -29,6 +31,11 @@ public class PersonDAO {
     public Person show(int id) {
         return jdbcTemplate.query("SELECT * FROM Person WHERE id=?", new BeanPropertyRowMapper<>(Person.class), id)
                 .stream().findAny().orElse(null);
+    }
+
+    public List<Person> findByName(String name) {
+
+        return jdbcTemplate.query("SELECT * FROM Person WHERE name=?", new BeanPropertyRowMapper<>(Person.class), name);
     }
 
     public void save(Person person) {

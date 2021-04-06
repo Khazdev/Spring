@@ -42,6 +42,7 @@ public class PeopleController {
     public String newPerson(Model model) {
 
         model.addAttribute("person", new Person());
+        String s = "";
 
         return "people/new";
     }
@@ -67,7 +68,6 @@ public class PeopleController {
     @PatchMapping("/{id}")
     public String update(@ModelAttribute("person") @Valid Person person, BindingResult bindingResult, @PathVariable("id") int id) {
 
-
         if (bindingResult.hasErrors()) {
             System.out.println(bindingResult.getFieldError());
             return "people/edit";
@@ -80,5 +80,12 @@ public class PeopleController {
     public String delete(@PathVariable("id") int id) {
         personDAO.delete(id);
         return "redirect:/people";
+    }
+
+    @GetMapping("/search")
+    public String search(@RequestParam (value = "name", required = false) String name, Model model) {
+
+        model.addAttribute("found", personDAO.findByName(name));
+        return "people/search";
     }
 }

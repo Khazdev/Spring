@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Search</title>
+</head>
+<body>
+
+
+<form   method="get">
+    <input type="text" name="name" id="search" />
+    <input  th:action="@{/search}" type="submit" value="Search"/>
+
+
+
+    <div th:if="${not #lists.isEmpty(found)}">
+        <h3>Найдено</h3>
+        <table style="border-top: 3px solid grey" >
+            <tr style="border: 1px slategray">
+                <th>Id</th>
+                <th>Name</th>
+                <th>Phone</th>
+            </tr>
+            <tr  th:each="person: ${found}">
+                <td  style="border-bottom: 1px solid grey" th:text="${person.getId()}"><a href="/people/${person.getId()}">idPerson</a></td>
+                <td style="border-bottom: 1px solid grey" th:text="${person.getName()}">name</td>
+                <td style="border-bottom: 1px solid grey" th:text="${person.getPhone().replaceFirst('(\d{3})(\d{3})(\d+)', '($1) $2-$3')}">phone</td>
+            </tr>
+        </table>
+    </div>
+</form>
+
+
+
+
+
+<a th:href="@{/people}">на главную</a>
+</body>
+</html>
+
